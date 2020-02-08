@@ -9,7 +9,7 @@ class PermissionsService {
   Future<bool> requestPermission(PermissionGroup permissionGroup) async {
     //Request permissions in a permission group
     var result = await _permissionHandler.requestPermissions([permissionGroup]);
-    print('result ${result}');
+    print('result: $result');
     //result is a Map. To request the value of a single entry, pass the key,
     //which is an entry in the permissiongroup
     if (result[permissionGroup]  == PermissionStatus.granted) {
@@ -30,6 +30,17 @@ class PermissionsService {
   //A permission function for reading SMS on device
   Future<bool> requestSmsPermission() async {
     return requestPermission(PermissionGroup.sms);
+  }
+
+  List<PermissionGroup> requiredPerms = [
+    PermissionGroup.sms,
+    PermissionGroup.phone
+  ];
+  Future<bool> requestallPermissions() async {
+    for (int i=0;i<requiredPerms.length;i++) {
+      await requestPermission(requiredPerms[i]);
+    }
+    return null;
   }
 
   //A function for showing a request window

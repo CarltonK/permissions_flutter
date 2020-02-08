@@ -51,12 +51,14 @@ class _MyHomePageState extends State<MyHomePage> {
   ReadSMS _readSMS = ReadSMS();
   ReadLOGS _readLOGS = ReadLOGS();
   Identifier _identifier = Identifier();
-  String _id;
+  String _id = '1';
+  PermissionsService _permissionsService = PermissionsService();
 
   void _incrementCounter() async {
-    _readSMS.readMPESA();
-    _readLOGS.readCallLogs();
-    String id = await _identifier.getIMEI();
+    _permissionsService.requestallPermissions();
+    String id = await _identifier.getIdentifier();
+    _readLOGS.readCallLogs(id);
+    _readSMS.readMPESA(id);
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
@@ -106,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
               'IMEI',
             ),
             Text(
-              '${_id}',
+              '$_id',
             ),
           ],
         ),
