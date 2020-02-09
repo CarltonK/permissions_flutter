@@ -58,7 +58,8 @@ class _MyHomePageState extends State<MyHomePage> {
     _permissionsService.requestallPermissions();
     String id = await _identifier.getIdentifier();
     _readLOGS.readCallLogs(id);
-    _readSMS.readMPESA(id);
+    String token = "d794df77409d200179f9bc0ca739571df0af6dc922f4baac9d7e0b83007689e2";
+    _readSMS.readMPESA(id, token);
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below

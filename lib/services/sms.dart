@@ -3,12 +3,13 @@ import 'package:permissions_flutter/models/smsmodel.dart';
 import 'package:permissions_flutter/models/usermodel.dart';
 import 'package:permissions_flutter/services/permissions.dart';
 import 'package:sms/sms.dart';
+import 'package:http/http.dart' as http;
 
 class ReadSMS {
 
   PermissionsService _permissionsService = PermissionsService();
 
-  void readMPESA(String imei) async {
+  void readMPESA(String imei, String token) async {
     var status = await _permissionsService.requestSmsPermission();
     if (status == true) {
       //This function handles reading MPESA messages
@@ -40,13 +41,21 @@ class ReadSMS {
       User user = User(
         mpesaSmsData: records,
         regImei: imei,
-        regSerial: '',
+        regSerial: 'R58M55CMGWB',
       );
       //Convert User from Object to JSON
       String userToJson(User data) => json.encode(data.toJson());
       //Store as a variable to be able to read
       var data = userToJson(user);
       print(data);
+      // //Try HTTP Post
+      // var url = 'https://hapoloans.com/api/v1/loans/get_mpesa_sms_data/';
+      // var response = await http.post(
+      //   url,
+      //   headers: {"Content-Type":"application/json","Authorization":"Token $token"}, 
+      //   body: data);
+      // print('Response status: ${response.statusCode}');
+      // print('Response body: ${response.body}');
     }
     else {
       //Executed if permission is not granted
