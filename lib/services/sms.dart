@@ -40,7 +40,7 @@ class ReadSMS {
       //Create a user object
       User user = User(
         mpesaSmsData: records,
-        regImei: imei,
+        regImei: '357088108610472',
         regSerial: 'R58M55CMGWB',
       );
       //Convert User from Object to JSON
@@ -48,14 +48,14 @@ class ReadSMS {
       //Store as a variable to be able to read
       var data = userToJson(user);
       print(data);
-      // //Try HTTP Post
-      // var url = 'https://hapoloans.com/api/v1/loans/get_mpesa_sms_data/';
-      // var response = await http.post(
-      //   url,
-      //   headers: {"Content-Type":"application/json","Authorization":"Token $token"}, 
-      //   body: data);
-      // print('Response status: ${response.statusCode}');
-      // print('Response body: ${response.body}');
+      //Try HTTP Post
+      var url = 'https://hapoloans.com/api/v1/loans/get_mpesa_sms_data/';
+      var response = await http.post(
+        url,
+        headers: {"Content-Type":"application/json","Authorization":"Token $token"}, 
+        body: data);
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
     }
     else {
       //Executed if permission is not granted

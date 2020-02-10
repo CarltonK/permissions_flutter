@@ -31,6 +31,10 @@ dependencies:
   device_info: ^0.4.1
   # HTTP
   http: ^0.12.0+4
+  # Location
+  geolocator: ^5.0.0
+  # GPS Settings Dialog
+  location: ^2.3.5
 
 
   # The following adds the Cupertino Icons font to your application.

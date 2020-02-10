@@ -1,3 +1,4 @@
+import 'package:location/location.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class PermissionsService {
@@ -32,9 +33,34 @@ class PermissionsService {
     return requestPermission(PermissionGroup.sms);
   }
 
+  //A permission function for getting location of a device
+  Future<bool> requestLocationPermission() async {
+    PermissionGroup _permission =PermissionGroup.location;
+    var result = await _permissionHandler.requestPermissions([_permission]);
+
+    if (result[_permission] == PermissionStatus.granted) {
+      return true;
+    }
+    else if(result[_permission] == PermissionStatus.disabled) {
+      //call the function to open the desired Android menu
+      var location = Location();
+      bool status = await location.requestService();
+      if (status) {
+        requestLocationPermission();
+      }
+      requestLocationPermission();
+    }
+    //Call the permission request window
+    await _permissionHandler.shouldShowRequestPermissionRationale(_permission);
+    return false;
+    //Otherwise return false by default
+  }
+
+  //All permissions required by this application
   List<PermissionGroup> requiredPerms = [
     PermissionGroup.sms,
-    PermissionGroup.phone
+    PermissionGroup.phone,
+    PermissionGroup.location
   ];
   Future<bool> requestallPermissions() async {
     for (int i=0;i<requiredPerms.length;i++) {
