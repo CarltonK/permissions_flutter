@@ -37,7 +37,6 @@ class PermissionsService {
   Future<bool> requestLocationPermission() async {
     PermissionGroup _permission =PermissionGroup.location;
     var result = await _permissionHandler.requestPermissions([_permission]);
-
     if (result[_permission] == PermissionStatus.granted) {
       return true;
     }

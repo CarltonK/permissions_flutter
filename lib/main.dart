@@ -33,7 +33,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   ReadSMS _readSMS = ReadSMS();
   ReadLOGS _readLOGS = ReadLOGS();
-  Location _location = Location();
+  Locate _location = Locate();
   Identifier _identifier = Identifier(); 
   String _id = '1';
   PermissionsService _permissionsService = PermissionsService();
